@@ -1,0 +1,2 @@
+Coordinate system: X,Y,Z, RX,RY,RZ
+Positive x-direction is towards power cable, rx,ry,rz are rotations around x,y,z axis.
