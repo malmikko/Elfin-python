@@ -117,6 +117,17 @@ class elfin:
         status = self.send(message)
         return status
 
+    def GrpReset(self):
+        """
+        Function: Reset robot
+        :return:
+            if Error Return False
+            if not Error Return True
+        """
+        message = "GrpReset," + self.rbtID + self.end_msg
+        status = self.send(message)
+        return status
+
     def SetOverride(self, override):
         """
         function: Set speed ratio
