@@ -166,6 +166,31 @@ class elfin:
         message = "MoveL," + self.rbtID + ',' + target + self.end_msg
         return self.send(message)
 
+    def MoveC(self, target, via, type):
+        """
+        function: Robot moves in a circular arc to the specified coordinates
+        through a specified mid point. Type = 1 keeps the orientation of the end
+        fixed relative to the circle.
+        :param: via:[X,Y,Z], target:[X,Y,Z,RX,RY,RZ], type:0/1
+        :return:
+        """
+        target = via + target + [type]
+        target = [str(s) for s in target]
+        target = (",".join(target))
+        message = "MoveC," + self.rbtID + ',' + target + self.end_msg
+        return self.send(message)
+
+    def MoveJ(self, target):
+        """
+        function: Robot moves each joint to specified position
+        :param: target:[J1,J2,J3,J4,J5,J6]
+        :return:
+        """
+        target = [str(s) for s in target]
+        target = (",".join(target))
+        message = "MoveJ," + self.rbtID + ',' + target + self.end_msg
+        return self.send(message)
+
     def SetToolCoordinateMotion(self, status):
         """
         function: Function: Set tool coordinate motion
