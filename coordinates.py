@@ -1,6 +1,6 @@
 # Class for converting coordinates
 
-from math import acos, atan2, cos, sin
+from math import acos, atan2, cos, sin, sqrt
 
 class coordinates:
     COORD_RELATIVE = 0  # [r, θ, φ, Rr, Rθ, Rφ]
@@ -63,11 +63,24 @@ class coordinates:
     def relativeToJoint(sphereOrig, coords):
         raise NotImplementedError('Joint positions are not currently implemented')
 
-    def JointToRelative(sphereOrig, coords):
+    def jointToRelative(sphereOrig, coords):
         raise NotImplementedError('Joint positions are not currently implemented')
 
-    def AbsoluteToJoint(coords):
+    def absoluteToJoint(coords):
         raise NotImplementedError('Joint positions are not currently implemented')
 
-    def JointToAbsolute(coords):
+    def jointToAbsolute(coords):
         raise NotImplementedError('Joint positions are not currently implemented')
+
+    def findSphericalMid(coords1, coords2, radius, sphereOrig):
+        # No orientation support
+        pos1 = coords1.asAbsolute()
+        pos2 = coords2.asAbsolute()
+        xmid = (pos1[0] + pos2[0]) / 2
+        ymid = (pos1[1] + pos2[1]) / 2
+        zmid = (pos1[2] + pos2[2]) / 2
+        norm = radius / math.sqrt(xmid**2 + ymid**2 + zmid**2)
+        newPos = [xmid * norm, ymid * norm, zmid * norm, 0, 0, 0]
+        newRel = absoluteToRelative(sphereOrig, newPos)
+        newPos[3] = 0; newPos[4] = 0; newPos[5] = 0
+        return coordinates(sphereOrig, newPos, COORD_RELATIVE)
